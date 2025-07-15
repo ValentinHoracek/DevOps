@@ -14,6 +14,9 @@ jobs:
     env:
       LINODE_TOKEN: ${{ secrets.LINODE_API_TOKEN }}
       ROOT_PASSWORD: ${{ secrets.LINODE_ROOT_PASSWORD }}
+    defaults:
+      run:
+        working-directory: Terraform
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -24,17 +27,9 @@ jobs:
           terraform_version: 1.12.2
 
       - name: Terraform Init
-        working-directory: Terraform
         run: terraform init
 
       - name: Terraform ${{ github.event.inputs.action }}
-        working-directory: Terraform
         run: terraform ${{ github.event.inputs.action }} -auto-approve
           -var="linode_token=$LINODE_TOKEN"
           -var="root_password=$ROOT_PASSWORD"
-
-      - working-directory: Terraform
-        run: ls -l  # confirm tfstate file exists
-
-      - working-directory: Terraform
-        run: terraform destroy -auto-approve -var="linode_token=$LINODE_TOKEN" -var="root_password=$ROOT_PASSWORD"
