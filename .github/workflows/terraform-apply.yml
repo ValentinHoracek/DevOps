@@ -27,6 +27,7 @@ jobs:
         run: terraform apply -auto-approve
           -var="linode_token=$LINODE_TOKEN"
           -var="root_password=$ROOT_PASSWORD"
+          
       - name: Upload Terraform state
         uses: actions/upload-artifact@v4
         with:
