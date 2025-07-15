@@ -24,6 +24,9 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        
+      - name: Terraform Plan
+        run: terraform plan -var="linode_token=$LINODE_TOKEN" -var="root_password=$ROOT_PASSWORD"
 
       - name: Terraform Apply
         run: terraform apply -auto-approve -var="linode_token=$LINODE_TOKEN" -var="root_password=$ROOT_PASSWORD"
