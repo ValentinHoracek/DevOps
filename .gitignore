@@ -5,3 +5,10 @@
 *.[Oo]bj
 [Oo]bj/
 [Bb]in/
+
+# Terraform sensitive files
+*.tfvars
+*.tfstate
+*.tfstate.*
+.terraform/
+.crash
