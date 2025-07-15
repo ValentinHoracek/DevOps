@@ -21,7 +21,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.6.6
+          terraform_version: 1.12.2
 
       - name: Terraform Init
         working-directory: Terraform
@@ -32,3 +32,9 @@ jobs:
         run: terraform ${{ github.event.inputs.action }} -auto-approve
           -var="linode_token=$LINODE_TOKEN"
           -var="root_password=$ROOT_PASSWORD"
+
+      - working-directory: Terraform
+        run: ls -l  # confirm tfstate file exists
+
+      - working-directory: Terraform
+        run: terraform destroy -auto-approve -var="linode_token=$LINODE_TOKEN" -var="root_password=$ROOT_PASSWORD"
