@@ -1,0 +1,27 @@
+name: Terraform Apply
+
+on:
+  workflow_dispatch:   # Manual trigger in GitHub UI
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    env:
+      LINODE_TOKEN: ${{ secrets.LINODE_API_TOKEN }}
+      ROOT_PASSWORD: ${{ secrets.LINODE_ROOT_PASSWORD }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.8.2
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve \
+          -var="linode_token=$LINODE_TOKEN" \
+          -var="root_password=$ROOT_PASSWORD"
