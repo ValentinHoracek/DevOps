@@ -11,8 +11,12 @@ jobs:
         working-directory: Terraform
     env:
       TF_TOKEN_app_terraform_io: ${{ secrets.TERRAFORM_API_TOKEN }}
-      LINODE_TOKEN: ${{ secrets.LINODE_API_TOKEN }}
-      ROOT_PASSWORD: ${{ secrets.LINODE_ROOT_PASSWORD }}
+      
+      TF_VAR_linode_token: ${{ secrets.LINODE_API_TOKEN }}
+      TF_VAR_root_password: ${{ secrets.LINODE_ROOT_PASSWORD }}
+    
+      TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      TF_VAR_cloudflare_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -26,7 +30,7 @@ jobs:
         run: terraform init
         
       - name: Terraform Plan
-        run: terraform plan -var="linode_token=$LINODE_TOKEN" -var="root_password=$ROOT_PASSWORD"
+        run: terraform plan
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -var="linode_token=$LINODE_TOKEN" -var="root_password=$ROOT_PASSWORD"
+        run: terraform apply -auto-approve
