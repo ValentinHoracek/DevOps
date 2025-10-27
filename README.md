@@ -1,5 +1,12 @@
 # DevOps
 
+## Automatic actions
+### Terraform Quality Checks
+Check Terraform with
+- TFLint
+- Checkov
+
+
 ## Setup
 Run actions from GitHub.
 - Terraform Apply
@@ -20,3 +27,7 @@ Run commands from local pc.
 `terraform apply` Apply changes - create new resources.
 
 `terraform destroy` Remove changes - destroy new resources.
+
+Update code if Terraform Quality Check fails.
+
+`terraform fmt` Format terraform code.
