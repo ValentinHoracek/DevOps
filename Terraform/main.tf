@@ -1,14 +1,14 @@
 terraform {
-required_version = ">= 1.12"
+  required_version = ">= 1.12"
 
-  cloud { 
-    organization = "valentin-horacek-devops" 
+  cloud {
+    organization = "valentin-horacek-devops"
 
-    workspaces { 
-      name = "linode-devops" 
-    } 
-  } 
-  
+    workspaces {
+      name = "linode-devops"
+    }
+  }
+
   required_providers {
     linode = {
       source  = "linode/linode"
@@ -19,7 +19,7 @@ required_version = ">= 1.12"
       version = "~> 5.7"
     }
   }
-    
+
 }
 
 provider "linode" {
@@ -28,11 +28,11 @@ provider "linode" {
 
 # Create a Linode
 resource "linode_instance" "devops_server" {
-  label = "devops-server"
-  image = "linode/ubuntu22.04"
-  region = "eu-central"
-  type = "g6-nanode-1"
+  label     = "devops-server"
+  image     = "linode/ubuntu22.04"
+  region    = "eu-central"
+  type      = "g6-nanode-1"
   root_pass = var.root_password
 
-   tags = ["devops", "ci-cd"]
+  tags = ["devops", "ci-cd"]
 }
