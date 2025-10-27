@@ -13,7 +13,7 @@ jobs:
       TF_TOKEN_app_terraform_io: ${{ secrets.TERRAFORM_API_TOKEN }}
       
       TF_VAR_linode_token: ${{ secrets.LINODE_API_TOKEN }}
-      TF_VAR_root_password: ${{ secrets.LINODE_ROOT_PASSWORD }}
+      TF_VAR_ssh_public_key: ${{ secrets.LINODE_SSH_PUBLIC_KEY }}
     
       TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       TF_VAR_cloudflare_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}

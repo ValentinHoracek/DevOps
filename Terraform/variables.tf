@@ -4,10 +4,9 @@ variable "linode_token" {
   sensitive   = true
 }
 
-variable "root_password" {
-  description = "Root password for the instance"
+variable "ssh_public_key" {
+  description = "Public SSH key for devops server"
   type        = string
-  sensitive   = true
 }
 
 variable "cloudflare_api_token" {
