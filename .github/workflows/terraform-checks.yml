@@ -12,9 +12,15 @@ jobs:
       run:
         working-directory: Terraform
     steps:
-      # Checkout the repo
+      # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v5
+
+      # Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.12.2
 
       # Terraform format check
       - name: Terraform Format Check
