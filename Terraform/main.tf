@@ -23,7 +23,7 @@ terraform {
 }
 
 provider "linode" {
-    token = var.linode_token # checkov:skip=CKV_LIN_1 "Token comes from env, not hardcoded"
+  token = var.linode_token # checkov:skip=CKV_LIN_1 "Token comes from env, not hardcoded"
 }
 
 # Create a Linode
