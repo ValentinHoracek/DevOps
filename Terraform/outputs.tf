@@ -5,5 +5,5 @@ output "devops_ip" {
 
 output "dns_record_name" {
   description = "Cloudflare DNS record name"
-  value       = cloudflare_record.jenkins.name
+  value       = cloudflare_dns_record.jenkins.name
 }
