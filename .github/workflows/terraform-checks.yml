@@ -1,0 +1,35 @@
+name: Terraform Quality Checks
+
+# Run on any push or pull request
+on:
+  push:
+  pull_request:
+
+jobs:
+  terraform-checks:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Terraform
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      # Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.12.2
+
+      # Run TFLint using Docker
+      - name: Run TFLint
+        run: docker run --rm -v ${PWD}:/data ghcr.io/terraform-linters/tflint:latest
+
+      # Terraform format check
+      - name: Terraform Format Check
+        run: terraform fmt -check
+
+      # Run Checkov using Docker
+      - name: Run Checkov
+        run: docker run --rm -v ${PWD}:/data bridgecrew/checkov:latest -d /data
