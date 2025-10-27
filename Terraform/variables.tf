@@ -1,3 +1,8 @@
+variable "linode_token" {
+  description = "Linode API Token"
+  type        = string
+}
+
 variable "ssh_public_key" {
   description = "Public SSH key for devops server"
   type        = string
