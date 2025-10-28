@@ -41,8 +41,8 @@ jobs:
       - name: Update README badges
         run: |
           sed -i -E "s|(Terraform-)[0-9.]+|\1${TF_VERSION}|g" README.md
-          sed -i -E "s|(Linode%20Provider-)[0-9.]+|\1${LINODE_VERSION}|g" README.md
-          sed -i -E "s|(Cloudflare%20Provider-)[0-9.]+|\1${CLOUDFLARE_VERSION}|g" README.md
+          sed -i -E "s|(Linode(%20| )Provider-)[0-9.]+|\1${LINODE_VERSION}|g" README.md
+          sed -i -E "s|(Cloudflare(%20| )Provider-)[0-9.]+|\1${CLOUDFLARE_VERSION}|g" README.md
 
       - name: Commit and push changes
         run: |
