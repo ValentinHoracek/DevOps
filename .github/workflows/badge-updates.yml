@@ -41,6 +41,7 @@ jobs:
 
           # TFLint version from Docker
           TFLINT_VERSION=$(tflint --version | awk '{print $3}')
+          echo "$TFLINT_VERSION"
 
           # Checkov
           CHECKOV_VERSION=$(docker run --rm bridgecrew/checkov:latest checkov --version | awk '{print $1}')
