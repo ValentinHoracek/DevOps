@@ -68,11 +68,17 @@ jobs:
           
           # Checkov
           sed -i -E "s|(Checkov-)[0-9]+\.[0-9]+\.[0-9]+|\1${CHECKOV_VERSION}|g" README.md
-
+          
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "Update badges" --allow-empty
-          git push
+
+          # Only commit if there are staged changes
+          if ! git diff --cached --quiet; then
+            git commit -m "Update badges"
+            git push
+          else
+            echo "No changes to commit"
+          fi
