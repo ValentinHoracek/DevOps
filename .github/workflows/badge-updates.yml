@@ -34,7 +34,7 @@ jobs:
           CLOUDFLARE_VERSION=$(awk '/"registry.terraform.io\/cloudflare\/cloudflare"/ {getline; print $3}' .terraform.lock.hcl | tr -d '"')
 
           # TFLint
-          TFLINT_VERSION=$(docker run --rm ghcr.io/terraform-linters/tflint:latest tflint --version | grep 'version' | awk '{print $3}')
+          TFLINT_VERSION=$(docker run --rm ghcr.io/terraform-linters/tflint:latest tflint --version 2>&1 | grep 'TFLint version' | awk '{print $3}')
 
           # Checkov
           CHECKOV_VERSION=$(docker run --rm bridgecrew/checkov:latest checkov --version | awk '{print $1}')
