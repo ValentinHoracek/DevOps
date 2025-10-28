@@ -1,0 +1,78 @@
+name: Update Badges
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  update-badges:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.12.2
+
+      # Can't get reference for version from docker
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v1
+        with:
+          tflint_version: latest
+      
+      - name: Extract versions (Terraform)
+        working-directory: Terraform
+        id: extract
+        run: |
+          # Terraform CLI version
+          TF_VERSION=$(terraform -version | head -n1 | awk '{print $2}' | sed 's/^v//')
+
+          # Linode provider version from .terraform.lock.hcl
+          LINODE_VERSION=$(awk '/"registry.terraform.io\/linode\/linode"/ {getline; print $3}' .terraform.lock.hcl | tr -d '"')
+
+          # Cloudflare provider version from .terraform.lock.hcl
+          CLOUDFLARE_VERSION=$(awk '/"registry.terraform.io\/cloudflare\/cloudflare"/ {getline; print $3}' .terraform.lock.hcl | tr -d '"')
+
+          # TFLint version from Docker
+          TFLINT_VERSION=$(tflint --version 2>&1 | head -n1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+
+          # Checkov
+          CHECKOV_VERSION=$(docker run --rm bridgecrew/checkov:latest checkov --version | awk '{print $1}')
+
+          # Export as environment variables
+          echo "TF_VERSION=$TF_VERSION" >> $GITHUB_ENV
+          echo "LINODE_VERSION=$LINODE_VERSION" >> $GITHUB_ENV
+          echo "CLOUDFLARE_VERSION=$CLOUDFLARE_VERSION" >> $GITHUB_ENV
+          echo "TFLINT_VERSION=$TFLINT_VERSION" >> $GITHUB_ENV
+          echo "CHECKOV_VERSION=$CHECKOV_VERSION" >> $GITHUB_ENV
+
+      - name: Update README badges
+        run: |
+          # Terraform
+          sed -i -E "s|(Terraform-)[0-9]+\.[0-9]+\.[0-9]+|\1${TF_VERSION}|g" README.md
+          
+          # Linode Provider
+          sed -i -E "s|(Linode%20Provider-)[0-9]+\.[0-9]+\.[0-9]+|\1${LINODE_VERSION}|g" README.md
+          
+          # Cloudflare Provider
+          sed -i -E "s|(Cloudflare%20Provider-)[0-9]+\.[0-9]+\.[0-9]+|\1${CLOUDFLARE_VERSION}|g" README.md
+
+          # TFLint
+          sed -i -E "s|(TFLint-)[0-9]+\.[0-9]+\.[0-9]+|\1${TFLINT_VERSION}|g" README.md
+          
+          # Checkov
+          sed -i -E "s|(Checkov-)[0-9]+\.[0-9]+\.[0-9]+|\1${CHECKOV_VERSION}|g" README.md
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Update badges" --allow-empty
+          git push
