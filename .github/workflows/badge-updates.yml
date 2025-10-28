@@ -21,6 +21,7 @@ jobs:
           terraform_version: 1.12.2
 
       - name: Extract versions
+        working-directory: Terraform
         id: extract
         run: |
           # Terraform CLI version
