@@ -40,9 +40,18 @@ jobs:
 
       - name: Update README badges
         run: |
-          sed -i -E "s|(Terraform-)[0-9.]+|\1${TF_VERSION}|g" README.md
-          sed -i -E "s|(Linode(%20| )Provider-)[0-9.]+|\1${LINODE_VERSION}|g" README.md
-          sed -i -E "s|(Cloudflare(%20| )Provider-)[0-9.]+|\1${CLOUDFLARE_VERSION}|g" README.md
+          sed -i -E "s|Terraform-[0-9.]+|Terraform-${TF_VERSION}|g" README.md
+          sed -i -E "s|Linode%20Provider-[0-9.]+|Linode%20Provider-${LINODE_VERSION}|g" README.md
+          sed -i -E "s|Cloudflare%20Provider-[0-9.]+|Cloudflare%20Provider-${CLOUDFLARE_VERSION}|g" README.md
+
+      - name: Debug
+        run: |
+          echo "TF_VERSION=$TF_VERSION"
+          echo "LINODE_VERSION=$LINODE_VERSION"
+          echo "CLOUDFLARE_VERSION=$CLOUDFLARE_VERSION"
+          grep -o "Terraform-[0-9.]\+" README.md
+          grep -o "Linode Provider-[0-9.]\+" README.md
+          grep -o "Cloudflare Provider-[0-9.]\+" README.md
 
       - name: Commit and push changes
         run: |
