@@ -6,6 +6,8 @@
 | Terraform  | [![Terraform](https://img.shields.io/badge/Terraform-1.12.2-623CE4?logo=terraform)](https://www.terraform.io/)                                                              |
 | Linode     | [![Linode Provider](https://img.shields.io/badge/Linode%20Provider-3.5.0-00ADEF?logo=akamai&logoColor=white)](https://registry.terraform.io/providers/linode/linode/latest) |
 | Cloudflare | [![Cloudflare](https://img.shields.io/badge/Cloudflare%20Provider-5.11.0-F38020?logo=cloudflare)](https://registry.terraform.io/providers/cloudflare/cloudflare/latest)     |
+| TFLint     | [![TFLint](https://img.shields.io/badge/TFLint-0.47.0-4F5D95?logo=terraform&logoColor=white)](https://github.com/terraform-linters/tflint)                                  |
+| Checkov    | [![Checkov](https://img.shields.io/badge/Checkov-2.1.411-0C0C0C?logo=bridgecrew&logoColor=white)](https://www.checkov.io/)                                                  |
 
 ## Automatic actions
 ### Terraform Quality Checks
@@ -13,6 +15,8 @@ Check Terraform with
 - TFLint
 - Checkov
 
+### Badge Updates
+Run autoamtic badge update for used tools.
 
 ## Setup
 Run actions from GitHub.
