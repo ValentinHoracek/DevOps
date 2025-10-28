@@ -50,8 +50,8 @@ jobs:
           echo "LINODE_VERSION=$LINODE_VERSION"
           echo "CLOUDFLARE_VERSION=$CLOUDFLARE_VERSION"
           grep -o "Terraform-[0-9.]\+" README.md
-          grep -o "Linode Provider-[0-9.]\+" README.md
-          grep -o "Cloudflare Provider-[0-9.]\+" README.md
+          grep -o "Linode%20Provider-[0-9.]\+" README.md
+          grep -o "Cloudflare%20Provider-[0-9.]\+" README.md
 
       - name: Commit and push changes
         run: |
