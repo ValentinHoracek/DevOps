@@ -3,8 +3,8 @@
 ## Tools
 ### 🧰 Tool Versions
 [![Terraform](https://img.shields.io/badge/Terraform-1.12.2-623CE4?logo=terraform)](https://www.terraform.io/)
-[![Linode Provider](https://img.shields.io/badge/Linode%20Provider-2.19.0-green?logo=linode)](https://registry.terraform.io/providers/linode/linode/latest)
-[![Cloudflare Provider](https://img.shields.io/badge/Cloudflare%20Provider-3.22.0-blue?logo=cloudflare)](https://registry.terraform.io/providers/cloudflare/cloudflare/latest)
+[![Linode Provider](https://img.shields.io/badge/Linode%20Provider-3.5.0-green?logo=linode)](https://registry.terraform.io/providers/linode/linode/latest)
+[![Cloudflare Provider](https://img.shields.io/badge/Cloudflare%20Provider-5.11.0-blue?logo=cloudflare)](https://registry.terraform.io/providers/cloudflare/cloudflare/latest)
 
 ## Automatic actions
 ### Terraform Quality Checks
