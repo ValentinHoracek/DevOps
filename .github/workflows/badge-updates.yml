@@ -49,23 +49,10 @@ jobs:
           # Cloudflare Provider
           sed -i -E "s|(Cloudflare%20Provider-)[0-9]+\.[0-9]+\.[0-9]+|\1${CLOUDFLARE_VERSION}|g" README.md
 
-      - name: Debug
-        run: |
-          echo "TF_VERSION=$TF_VERSION"
-          echo "LINODE_VERSION=$LINODE_VERSION"
-          echo "CLOUDFLARE_VERSION=$CLOUDFLARE_VERSION"
-          grep -o "Terraform-[0-9.]\+" README.md
-          grep -o "Linode%20Provider-[0-9.]\+" README.md
-          grep -o "Cloudflare%20Provider-[0-9.]\+" README.md
-          echo "=== DIFF START ==="
-          git diff README.md
-          echo "=== DIFF END ==="
-
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "Update Terraform & provider badges" --allow-empty
+          git commit -m "Update badges" --allow-empty
           git push
-          # git diff --quiet && echo "No changes" || (git commit -m "Update Terraform & provider badges" && git push)
