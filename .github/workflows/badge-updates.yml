@@ -40,14 +40,14 @@ jobs:
 
       - name: Update README badges
         run: |
-          # Terraform
-          sed -i -E "s|(Terraform-)[0-9]+\.[0-9]+\.[0-9]+|\1${TF_VERSION}|g" README.md
+          # Terraform badge
+          sed -i -E "s|(Terraform-)[0-9]+\.[0-9]+\.[0-9]+(-)|\1${TF_VERSION}\2|g" README.md
           
-          # Linode Provider
-          sed -i -E "s|(Linode%20Provider-)[0-9]+\.[0-9]+\.[0-9]+|\1${LINODE_VERSION}|g" README.md
+          # Linode Provider badge
+          sed -i -E "s|(Linode%20Provider-)[0-9]+\.[0-9]+\.[0-9]+(-)|\1${LINODE_VERSION}\2|g" README.md
           
-          # Cloudflare Provider
-          sed -i -E "s|(Cloudflare%20Provider-)[0-9]+\.[0-9]+\.[0-9]+|\1${CLOUDFLARE_VERSION}|g" README.md
+          # Cloudflare Provider badge
+          sed -i -E "s|(Cloudflare%20Provider-)[0-9]+\.[0-9]+\.[0-9]+(-)|\1${CLOUDFLARE_VERSION}\2|g" README.md
 
       - name: Debug
         run: |
