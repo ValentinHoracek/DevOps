@@ -20,6 +20,12 @@ jobs:
         with:
           terraform_version: 1.12.2
 
+      # Can't get reference for version from docker
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v1
+        with:
+          tflint_version: latest
+      
       - name: Extract versions (Terraform)
         working-directory: Terraform
         id: extract
@@ -34,8 +40,7 @@ jobs:
           CLOUDFLARE_VERSION=$(awk '/"registry.terraform.io\/cloudflare\/cloudflare"/ {getline; print $3}' .terraform.lock.hcl | tr -d '"')
 
           # TFLint version from Docker
-          TFLINT_VERSION=$(docker run --rm ghcr.io/terraform-linters/tflint:latest tflint --version 2>&1 \
-            | grep -oP 'TFLint version \K[0-9]+\.[0-9]+\.[0-9]+')
+          TFLINT_VERSION=$(tflint --version | awk '{print $3}')
 
           # Checkov
           CHECKOV_VERSION=$(docker run --rm bridgecrew/checkov:latest checkov --version | awk '{print $1}')
