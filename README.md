@@ -3,7 +3,7 @@
 ## Tools
 | Name       | Version                                                                                                                                                                     |
 |------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Terraform  | [![Terraform](https://img.shields.io/badge/Terraform-1.12.0-623CE4?logo=terraform)](https://www.terraform.io/)                                                              |
+| Terraform  | [![Terraform](https://img.shields.io/badge/Terraform-1.12.2-623CE4?logo=terraform)](https://www.terraform.io/)                                                              |
 | Linode     | [![Linode Provider](https://img.shields.io/badge/Linode%20Provider-3.5.0-00ADEF?logo=akamai&logoColor=white)](https://registry.terraform.io/providers/linode/linode/latest) |
 | Cloudflare | [![Cloudflare](https://img.shields.io/badge/Cloudflare%20Provider-5.11.0-F38020?logo=cloudflare)](https://registry.terraform.io/providers/cloudflare/cloudflare/latest)     |
 | TFLint     | [![TFLint](https://img.shields.io/badge/TFLint-0.59.1-4F5D95?logo=terraform&logoColor=white)](https://github.com/terraform-linters/tflint)                                  |
