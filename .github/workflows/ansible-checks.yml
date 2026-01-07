@@ -1,0 +1,31 @@
+name: Ansible Quality Check
+
+# Run on any push or pull request
+on:
+  push:
+  pull_request:
+
+jobs:
+  ansible-syntax:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Ansible  
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      # Setup Python
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      # Install Ansible
+      - name: Install Ansible
+        run: pip install --upgrade pip ansible
+
+      # Ansible syntax check
+      - name: Run Ansible Syntax Check
+        run: ansible-playbook playbooks/site.yml --syntax-check

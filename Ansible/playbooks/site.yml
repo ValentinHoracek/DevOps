@@ -1,0 +1,9 @@
+---
+# Minimal placeholder playbook
+- name: Test Ansible syntax
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Dummy task to pass syntax check
+      debug:
+        msg: "Ansible syntax is correct!"
