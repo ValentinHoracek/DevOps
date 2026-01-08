@@ -16,16 +16,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      # Setup Python
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+      # Ansible syntax check using Docker
+      - name: Ansible Syntax Check
+        run: docker run --rm -v ${PWD}:/work -w /work ghcr.io/ansible/ansible:latest ansible-playbook playbooks/site.yml --syntax-check
 
-      # Install Ansible
-      - name: Install Ansible
-        run: pip install --upgrade pip ansible
+      # Run Ansible Lint using Docker
+      - name: Run Ansible Lint
+        run: docker run --rm -v ${PWD}:/data ghcr.io/ansible/ansible-lint:latest ansible-lint .
 
-      # Ansible syntax check
-      - name: Run Ansible Syntax Check
-        run: ansible-playbook playbooks/site.yml --syntax-check
+      # Run Checkov using Docker
+      - name: Checkov Scan
+        run: docker run --rm -v ${PWD}:/data bridgecrew/checkov:latest -d /data --framework ansible
+
