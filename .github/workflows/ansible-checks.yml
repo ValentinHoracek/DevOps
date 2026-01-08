@@ -18,11 +18,11 @@ jobs:
 
       # Ansible syntax check using Docker
       - name: Ansible Syntax Check
-        run: docker run --rm -v ${PWD}:/work -w /work ghcr.io/ansible/ansible:latest ansible-playbook playbooks/site.yml --syntax-check
+        run: docker run --rm -v ${PWD}:/work -w /work alpine/ansible:latest ansible-playbook playbooks/site.yml --syntax-check
 
       # Run Ansible Lint using Docker
       - name: Run Ansible Lint
-        run: docker run --rm -v ${PWD}:/data ghcr.io/ansible/ansible-lint:latest ansible-lint .
+        run: docker run --rm -v ${PWD}:/data pipelinecomponents/ansible-lint:latest ansible-lint .
 
       # Run Checkov using Docker
       - name: Checkov Scan
