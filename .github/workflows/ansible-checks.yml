@@ -16,9 +16,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      # Cache Galaxy roles
+      - name: Cache Galaxy roles
+        uses: actions/cache@v3
+        with:
+          path: ./roles
+          key: ${{ runner.os }}-ansible-roles-${{ hashFiles('requirements.yml') }}
+
+      # Install Galaxy roles
+      - name: Install Ansible Galaxy Roles
+        run: docker run --rm -v ${PWD}:/data -w /data alpine/ansible:latest ansible-galaxy install -r requirements.yml --roles-path ./roles  
+
       # Ansible syntax check using Docker
       - name: Ansible Syntax Check
-        run: docker run --rm -v ${PWD}:/work -w /work alpine/ansible:latest ansible-playbook playbooks/site.yml --syntax-check
+        run: docker run --rm -v ${PWD}:/data -w /data alpine/ansible:latest ansible-playbook playbooks/site.yml --syntax-check
 
       # Run Ansible Lint using Docker
       - name: Run Ansible Lint
@@ -27,4 +38,3 @@ jobs:
       # Run Checkov using Docker
       - name: Checkov Scan
         run: docker run --rm -v ${PWD}:/data bridgecrew/checkov:latest -d /data --framework ansible
-

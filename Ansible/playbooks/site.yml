@@ -1,9 +1,13 @@
 ---
 # Minimal placeholder playbook
-- name: Test Ansible syntax
+- name: Test Ansible syntax with Nginx
   hosts: localhost
   gather_facts: false
   tasks:
     - name: Dummy task to pass syntax check
       debug:
         msg: "Ansible syntax is correct!"
+  roles:
+    - geerlingguy.nginx
+    - common
+    - docker
