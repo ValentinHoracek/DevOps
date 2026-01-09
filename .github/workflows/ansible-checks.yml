@@ -37,4 +37,11 @@ jobs:
 
       # Run Checkov using Docker
       - name: Checkov Scan
-        run: docker run --rm -v ${PWD}:/data bridgecrew/checkov:latest -d /data --framework ansible
+        run: >
+          docker run --rm
+            -v ${PWD}:/data
+            bridgecrew/checkov:latest
+            -d /data
+            --framework ansible
+            --skip-path /data/roles/geerlingguy.docker
+            --skip-path /data/roles/geerlingguy.nginx

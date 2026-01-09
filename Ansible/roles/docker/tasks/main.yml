@@ -1,6 +1,5 @@
 - name: Include upstream docker role
   block:
-    # checkov:skip=CKV2_ANSIBLE_3 "Upstream Galaxy role handles errors internally"
     - import_role:
         name: geerlingguy.docker
   rescue:
