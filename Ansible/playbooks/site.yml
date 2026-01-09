@@ -8,6 +8,6 @@
       debug:
         msg: "Ansible syntax is correct!"
   roles:
-    - geerlingguy.nginx
     - common
     - docker
+    - nginx

@@ -1,0 +1,3 @@
+- name: Include upstream nginx role
+  import_role:
+    name: geerlingguy.nginx
