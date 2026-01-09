@@ -1,3 +1,12 @@
 - name: Include upstream nginx role
-  import_role:
-    name: geerlingguy.nginx
+  block:
+    - import_role:
+        name: geerlingguy.nginx
+  rescue:
+    - name: Log nginx role failure
+      debug:
+        msg: "geerlingguy.nginx role failed!"
+  always:
+    - name: Finished nginx import block
+      debug:
+        msg: "geerlingguy.nginx role import completed"
