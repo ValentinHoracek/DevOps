@@ -22,6 +22,7 @@ jobs:
         with:
           path: ./roles
           key: ${{ runner.os }}-ansible-roles-${{ hashFiles('requirements.yml') }}
+          restore-keys: ${{ runner.os }}-ansible-roles-
 
       # Install Galaxy roles
       - name: Install Ansible Galaxy Roles
