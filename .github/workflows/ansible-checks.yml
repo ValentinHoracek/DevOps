@@ -29,7 +29,7 @@ jobs:
 
       # Ansible syntax check using Docker
       - name: Ansible Syntax Check
-        run: docker run --rm -v ${PWD}:/data -w /data alpine/ansible:latest ansible-playbook playbooks/site.yml --syntax-check
+        run: docker run --rm -v ${PWD}:/data -w /data alpine/ansible:latest ansible-playbook playbooks/site.yml --syntax-check -i inventories/devops/hosts.yml
 
       # Run Ansible Lint using Docker
       - name: Run Ansible Lint
