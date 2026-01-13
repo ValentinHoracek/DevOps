@@ -30,7 +30,7 @@ jobs:
 
       # Install Galaxy roles
       - name: Install Ansible Galaxy Roles
-        run: docker run --rm -v ${PWD}:/data -w /data alpine/ansible:latest ansible-galaxy install -r requirements.yml --roles-path ./roles
+        run: docker run --rm -v ${PWD}:/data -w /data alpine/ansible:latest ansible-galaxy install -r requirements.yml --roles-path roles
 
       # Ansible syntax check using Docker
       - name: Ansible Syntax Check
