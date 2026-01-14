@@ -24,8 +24,8 @@ jobs:
       - name: Cache Galaxy roles
         uses: actions/cache@v3
         with:
-          path: ./roles
-          key: ${{ runner.os }}-ansible-roles-${{ hashFiles('requirements.yml') }}
+          path: Ansible/roles
+          key: ${{ runner.os }}-ansible-roles-${{ hashFiles('Ansible/requirements.yml') }}
           restore-keys: ${{ runner.os }}-ansible-roles-
 
       # Install Galaxy roles
