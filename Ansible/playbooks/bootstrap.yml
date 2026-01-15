@@ -1,0 +1,11 @@
+---
+# playbooks/bootstrap.yml
+
+- name: Bootstrap DevOps server
+  hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - base
+    - common
+    - docker
