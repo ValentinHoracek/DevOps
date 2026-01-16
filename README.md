@@ -8,6 +8,7 @@
 | Cloudflare | [![Cloudflare](https://img.shields.io/badge/Cloudflare%20Provider-5.14.0-F38020?logo=cloudflare)](https://registry.terraform.io/providers/cloudflare/cloudflare/latest)     |
 | TFLint     | [![TFLint](https://img.shields.io/badge/TFLint-0.60.0-4F5D95?logo=terraform&logoColor=white)](https://github.com/terraform-linters/tflint)                                  |
 | Checkov    | [![Checkov](https://img.shields.io/badge/Checkov-3.2.497-0C0C0C?logo=bridgecrew&logoColor=white)](https://www.checkov.io/)                                                  |
+| Ansible    | [![Ansible](https://img.shields.io/badge/Ansible-unknown-EE0000?logo=ansible&logoColor=white)](https://www.ansible.com/)                                                    |
 
 ## Automatic actions
 ### Terraform Quality Checks
