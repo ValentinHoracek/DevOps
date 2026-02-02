@@ -1,3 +1,6 @@
+---
+# workflows/badge-update.yml
+
 name: Update Badges
 
 on:
@@ -45,12 +48,16 @@ jobs:
           # Checkov
           CHECKOV_VERSION=$(docker run --rm bridgecrew/checkov:latest checkov --version | awk '{print $1}')
 
+          # Ansible
+          ANSIBLE_VERSION=$(ansible --version | head -n1 | awk '{print $2}')
+
           # Export as environment variables
           echo "TF_VERSION=$TF_VERSION" >> $GITHUB_ENV
           echo "LINODE_VERSION=$LINODE_VERSION" >> $GITHUB_ENV
           echo "CLOUDFLARE_VERSION=$CLOUDFLARE_VERSION" >> $GITHUB_ENV
           echo "TFLINT_VERSION=$TFLINT_VERSION" >> $GITHUB_ENV
           echo "CHECKOV_VERSION=$CHECKOV_VERSION" >> $GITHUB_ENV
+          echo "ANSIBLE_VERSION=$ANSIBLE_VERSION" >> $GITHUB_ENV
 
       - name: Update README badges
         run: |
@@ -68,6 +75,10 @@ jobs:
           
           # Checkov
           sed -i -E "s|(Checkov-)[0-9]+\.[0-9]+\.[0-9]+|\1${CHECKOV_VERSION}|g" README.md
+
+          # Ansible
+          sed -i -E "s|(Ansible-)[0-9]+\.[0-9]+\.[0-9]+|\1${ANSIBLE_VERSION}|g" README.md
+
           
       - name: Commit and push changes
         run: |

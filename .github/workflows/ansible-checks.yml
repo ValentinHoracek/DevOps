@@ -1,0 +1,53 @@
+---
+# workflows/ansible-checks.yml
+
+name: Ansible Quality Check
+
+# Run on any push or pull request
+on:
+  push:
+  pull_request:
+
+jobs:
+  ansible-syntax:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Ansible  
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      # Prepare directory so cache can save later
+      - name: Prepare roles directory
+        run: mkdir -p roles
+
+      # Cache Galaxy roles
+      - name: Cache Galaxy roles
+        uses: actions/cache@v3
+        with:
+          path: Ansible/roles
+          key: ${{ runner.os }}-ansible-roles-${{ hashFiles('Ansible/requirements.yml') }}
+          restore-keys: ${{ runner.os }}-ansible-roles-
+
+      # Install Galaxy roles
+      - name: Install Ansible Galaxy Roles
+        run: docker run --rm -v ${PWD}:/data -w /data alpine/ansible:latest ansible-galaxy install -r requirements.yml --roles-path roles
+
+      # Ansible syntax check using Docker
+      - name: Ansible Syntax Check
+        run: docker run --rm -v ${PWD}:/data -w /data alpine/ansible:latest ansible-playbook playbooks/site.yml --syntax-check -i inventories/devops/hosts.yml
+
+      # Run Ansible Lint using Docker
+      - name: Run Ansible Lint
+        run: docker run --rm -v ${PWD}:/data pipelinecomponents/ansible-lint:latest ansible-lint .
+
+      # Run Checkov using Docker
+      - name: Checkov Scan
+        run: >
+          docker run --rm -v ${PWD}:/data bridgecrew/checkov:latest
+          -d /data
+          --framework ansible
+          --skip-path /data/roles/geerlingguy.docker
+          --skip-path /data/roles/geerlingguy.nginx
