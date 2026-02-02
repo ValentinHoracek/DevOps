@@ -1,0 +1,44 @@
+---
+# workflows/ansible-bootstrap.yml
+
+name: Ansible Bootstrap
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: Ansible
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.LINODE_SSH_PRIVATE_KEY }}
+
+      - name: Install Ansible
+        run: sudo apt-get update && sudo apt-get install -y ansible jq
+
+      - name: Create Ansible inventory
+        run: |
+          DDEVOPS_IP=$(jq -r '.devops_ip.value' ../Terraform/outputs.json)
+
+          mkdir -p inventories/devops/group_vars
+
+          cat <<EOF > inventories/devops/hosts.yml
+          all:
+            hosts:
+              devops:
+                ansible_host: ${DEVOPS_IP}
+                ansible_user: root
+          EOF
+
+      - name: Run Ansible bootstrap
+        run: ansible-playbook -i inventories/devops/hosts.yml playbooks/bootstrap.yml

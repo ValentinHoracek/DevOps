@@ -26,6 +26,12 @@ jobs:
       - name: Run TFLint
         run: docker run --rm -v ${PWD}:/data ghcr.io/terraform-linters/tflint:latest
 
+      # Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.12.2
+
       # Terraform format check
       - name: Terraform Format Check
         run: terraform fmt -check

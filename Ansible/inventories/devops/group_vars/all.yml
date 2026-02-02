@@ -1,0 +1,4 @@
+---
+# inventories/devops/group_vars/all.yml
+
+timezone: Europe/Prague
