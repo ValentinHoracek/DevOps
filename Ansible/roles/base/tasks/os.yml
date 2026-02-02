@@ -1,0 +1,32 @@
+---
+# roles/base/tasks/os.yml
+
+- name: Assert supported OS
+  ansible.builtin.assert:
+    that:
+      - ansible_distribution == "Ubuntu"
+      - ansible_distribution_major_version | int >= 22
+    fail_msg: "Unsupported OS: {{ ansible_distribution }} {{ ansible_distribution_version }}"
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Upgrade system packages safely
+  ansible.builtin.apt:
+    upgrade: safe
+
+- name: Install base packages
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - wget
+      - gnupg
+      - lsb-release
+      - apt-transport-https
+      - unzip
+      - htop
+      - jq
+    state: present

@@ -1,0 +1,15 @@
+---
+# roles/docker/tasks/main.yml
+
+- name: Include upstream docker role
+  block:
+    - import_role:
+        name: geerlingguy.docker
+  rescue:
+    - name: Log docker role failure
+      debug:
+        msg: "geerlingguy.docker role failed!"
+  always:
+    - name: Finished docker import block
+      debug:
+        msg: "geerlingguy.docker role import completed"

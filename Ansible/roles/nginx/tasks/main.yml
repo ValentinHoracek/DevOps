@@ -1,0 +1,15 @@
+---
+# roles/docker/defaults/main.yml
+
+- name: Include upstream nginx role
+  block:
+    - import_role:
+        name: geerlingguy.nginx
+  rescue:
+    - name: Log nginx role failure
+      debug:
+        msg: "geerlingguy.nginx role failed!"
+  always:
+    - name: Finished nginx import block
+      debug:
+        msg: "geerlingguy.nginx role import completed"
