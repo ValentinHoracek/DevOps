@@ -28,7 +28,7 @@ jobs:
 
       - name: Create Ansible inventory
         run: |
-          DDEVOPS_IP=$(jq -r '.devops_ip.value' ../Terraform/outputs.json)
+          DEVOPS_IP=$(jq -r '.devops_ip.value' ../Terraform/outputs.json)
 
           mkdir -p inventories/devops/group_vars
 

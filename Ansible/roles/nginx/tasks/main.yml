@@ -1,5 +1,5 @@
 ---
-# roles/docker/defaults/main.yml
+# roles/nginx/tasks/main.yml
 
 - name: Include upstream nginx role
   block:
