@@ -17,7 +17,7 @@ jobs:
     steps:
       # Checkout the repository
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # Prepare directory so cache can save later
       - name: Prepare roles directory
@@ -25,7 +25,7 @@ jobs:
 
       # Cache Galaxy roles
       - name: Cache Galaxy roles
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: Ansible/roles
           key: ${{ runner.os }}-ansible-roles-${{ hashFiles('Ansible/requirements.yml') }}
